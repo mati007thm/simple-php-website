@@ -2,7 +2,7 @@ name: web-deploy-to-ftp
 
 on:
   pull_request:
-    branches: [ 'master' ]
+    branches: [ 'staging' ]
 
 jobs:
   web-deploy:
@@ -18,5 +18,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           remote_dir: ${{ secrets.FTP_REMOTE_FOLDER }}
-          local_dir: ./
           method: sftp
