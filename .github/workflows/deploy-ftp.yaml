@@ -9,16 +9,14 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Get latest code
-        uses: actions/checkout@v3
-      - name: FTP Deployer
-        uses: sand4rt/ftp-deployer@v1.8
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Fast FTP Action
+        uses: anvil-solutions/Fast-FTP-Action@2.1.3
         with:
-          sftp: true # optional
-          host: ${{ secrets.FTP_SERVER }} # e.g. ftp.host.com or sftp.host.com (without ftp:// or ftps://)
-          port: ${{ secrets.FTP_PORT }} # optional, default is: 21
-          username: ${{ secrets.FTP_USERNAME }} # FTP username
-          password: ${{ secrets.FTP_PASSWORD }} # FTP password
-          remote_folder: ${{ secrets.FTP_REMOTE_FOLDER }} # optional, remote path of your FTP server
-          local_folder: dist # optional, local path, default is: dist
-          cleanup: false # optional, remove existing files inside FTP remote folder
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          remote_dir: ${{ secrets.FTP_REMOTE_FOLDER }}
+          local_dir: ./
+          method: sftp
