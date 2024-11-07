@@ -25,7 +25,7 @@ jobs:
           lftp -e "set sftp:auto-confirm yes; \
                  open sftp://$FTP_USER:$FTP_PASS@$FTP_HOST; \
                  mirror -R --delete --verbose \
-                 --exclude */.git/ --exclude */.github/ \
+                 --exclude .git/ --exclude .github/ \
                  ./ $FTP_DIR; \
                  bye"
           echo "================="
