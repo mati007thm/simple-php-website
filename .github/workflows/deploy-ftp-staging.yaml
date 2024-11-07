@@ -12,12 +12,8 @@ jobs:
       - uses: actions/checkout@v4
           # Here is the deployment action
       - name: Upload from public_html via FTP
-        uses: airvzxf/ftp-deployment-action@latest
-        with:
-          server: ${{ secrets.FTP_STAGING_SERVER }}
-          user: ${{ secrets.FTP_STAGING_USERNAME }}
-          password: ${{ secrets.FTP_STAGING_PASSWORD }}
-          local_dir: "./"
-          remote_dir: ${{ secrets.FTP_STAGING_REMOTE_FOLDER }}
-          max_retries: 10
-          ftp_ssl_allow: true
+        run: |
+          sudo apt-get -y update
+          sudo apt-get -y install lftp
+          lftp sftp://${{secrets.FTP_STAGING_USERNAME}}:${{secrets.FTP_STAGING_PASSWORD}}@${{secrets.FTP_STAGING_SERVER}} -e set net:max-retries 10 mirror --continue --reverse './' ${{secrets.FTP_STAGING_REMOTE_FOLDER}}
+          
