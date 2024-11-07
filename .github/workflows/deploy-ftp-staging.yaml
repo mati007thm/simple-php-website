@@ -20,14 +20,6 @@ jobs:
           FTP_DIR: ${{secrets.FTP_STAGING_REMOTE_FOLDER}}
         run: |
           echo "================="
-          echo "Updating packages"
-          echo "================="
-          sudo apt-get -y update
-          echo "================="
-          echo "Installing lftp"
-          echo "================="
-          sudo apt-get -y install lftp
-          echo "================="
           echo "Executing sftp"
           echo "================="
           lftp -e "set sftp:auto-confirm yes; \
