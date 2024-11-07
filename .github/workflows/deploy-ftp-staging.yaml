@@ -15,7 +15,7 @@ jobs:
         uses: airvzxf/ftp-deployment-action@latest
         with:
           server: ${{ secrets.FTP_STAGING_SERVER }}
-          user: ${{ secrets.FTP_STAGING_USERNAME }}
+          user: sftp://${{ secrets.FTP_STAGING_USERNAME }}
           password: ${{ secrets.FTP_STAGING_PASSWORD }}
           local_dir: "./"
           remote_dir: ${{ secrets.FTP_STAGING_REMOTE_FOLDER }}
