@@ -11,12 +11,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      - name: FTP Transfer Files
-        uses: ercindedeoglu/ftp-transfer-action@v2
+      - name: Fast FTP Action
+        uses: anvil-solutions/Fast-FTP-Action@2.1.3
         with:
-          host: ${{ secrets.FTP_STAGING_SERVER }}
-          user: ${{ secrets.FTP_STAGING_USERNAME }}
+          server: ${{ secrets.FTP_STAGING_SERVER }}
+          username: ${{ secrets.FTP_STAGING_USERNAME }}
           password: ${{ secrets.FTP_STAGING_PASSWORD }}
-          localDir: '.'
-          remoteDir: ${{ secrets.FTP_STAGING_REMOTE_FOLDER }}
-          forceSsl: false
+          remote_dir: ${{ secrets.FTP_STAGING_REMOTE_FOLDER }}
+          method: sftp
