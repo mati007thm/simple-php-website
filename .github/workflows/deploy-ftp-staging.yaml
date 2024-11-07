@@ -12,6 +12,11 @@ jobs:
       - uses: actions/checkout@v4
           # Here is the deployment action
       - name: Upload from public_html via FTP
+        env:
+          FTP_HOST: ${{ secrets.FTP_STAGING_SERVER }}
+          FTP_USER: ${{ secrets.FTP_STAGING_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_STAGING_PASSWORD }}
+          FTP_DIR: ${{secrets.FTP_STAGING_REMOTE_FOLDER}}
         run: |
           echo "================="
           echo "Updating packages"
@@ -24,8 +29,7 @@ jobs:
           echo "================="
           echo "Executing sftp"
           echo "================="
-          lftp -e "set sftp:auto-confirm yes; open sftp://${{secrets.FTP_STAGING_USERNAME}}:${{secrets.FTP_STAGING_PASSWORD}}@${{secrets.FTP_STAGING_SERVER}}; mirror -R --delete --verbose --parallel=3 --ignore-time --use-pget-n=3 ./ ${{secrets.FTP_STAGING_REMOTE_FOLDER}}; bye"
-          echo "lftp -e "set sftp:auto-confirm yes; open sftp://${{secrets.FTP_STAGING_USERNAME}}:${{secrets.FTP_STAGING_PASSWORD}}@${{secrets.FTP_STAGING_SERVER}}; mirror -R --delete --verbose --parallel=3 --ignore-time --use-pget-n=3 ./ ${{secrets.FTP_STAGING_REMOTE_FOLDER}}; bye""
+          lftp -e "set sftp:auto-confirm yes; open sftp://$FTP_USER:$FTP_PASS@$FTP_HOST; mirror -R --delete --verbose --parallel=3 --ignore-time --use-pget-n=3 ./ $FTP_DIR; bye"
           echo "================="
           echo "Finished upload"
           echo "================="
