@@ -10,16 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3.6.0
-      - name: FTP Deployer
-        uses: sand4rt/ftp-deployer@v1.8
+        uses: actions/checkout@v3
+      - name: FTP Transfer Files
+        uses: ercindedeoglu/ftp-transfer-action@v2
         with:
-          sftp: true # optional
-          host: ${{ secrets.FTP_STAGING_SERVER }} # e.g. ftp.host.com or sftp.host.com (without ftp:// or ftps://)
-          port: 22 # optional, default is: 21
-          username: ${{ secrets.FTP_STAGING_USERNAME }} # FTP username
-          password: ${{ secrets.FTP_STAGING_PASSWORD }} # FTP password
-          remote_folder: ${{ secrets.FTP_STAGING_REMOTE_FOLDER }} # optional, remote path of your FTP server
-          local_folder: . # optional, local path, default is: dist
-          cleanup: true # optional, remove existing files inside FTP remote folder
-          passive: true # optional
+          host: ${{ secrets.FTP_STAGING_SERVER }}
+          user: ${{ secrets.FTP_STAGING_USERNAME }}
+          password: ${{ secrets.FTP_STAGING_PASSWORD }}
+          localDir: '.'
+          remoteDir: ${{ secrets.FTP_STAGING_REMOTE_FOLDER }}
+          forceSsl: false
