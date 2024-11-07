@@ -1,8 +1,8 @@
 name: web-deploy-to-ftp
 
 on:
-  pull_request:
-    branches: [ 'master' ]
+  push:
+    branches: [ 'main' ]
 
 jobs:
   web-deploy:
@@ -14,8 +14,8 @@ jobs:
       - name: Fast FTP Action
         uses: anvil-solutions/Fast-FTP-Action@2.1.3
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          remote_dir: ${{ secrets.FTP_REMOTE_FOLDER }}
+          server: ${{ secrets.FTP_PRODUCTION_SERVER }}
+          username: ${{ secrets.FTP_PRODUCTION_USERNAME }}
+          password: ${{ secrets.FTP_PRODUCTION_PASSWORD }}
+          remote_dir: ${{ secrets.FTP_PRODUCTION_REMOTE_FOLDER }}
           method: sftp
