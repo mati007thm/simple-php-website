@@ -13,8 +13,9 @@ jobs:
           # Here is the deployment action
       - name: Upload from public_html via FTP
         run: |
+          echo "updating packages"
           sudo apt-get -y update
           echo "installing lftp"
           sudo apt-get -y install lftp
           echo "executing sftp"
-          lftp sftp://${{secrets.FTP_STAGING_USERNAME}}:${{secrets.FTP_STAGING_PASSWORD}}@${{secrets.FTP_STAGING_SERVER}} -e set net:max-retries 10 mirror --continue --reverse './' ${{secrets.FTP_STAGING_REMOTE_FOLDER}}
+          lftp sftp://${{secrets.FTP_STAGING_USERNAME}}:${{secrets.FTP_STAGING_PASSWORD}}@${{secrets.FTP_STAGING_SERVER}} -e set net:max-retries 10 mirror --reverse --verbose=1 --delete './' ${{secrets.FTP_STAGING_REMOTE_FOLDER}}
